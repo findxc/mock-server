@@ -1,5 +1,7 @@
 #!/usr/bin/env node
+const path = require('path')
 const express = require('express')
+const Mock = require('./Mock')
 const { random } = require('./util')
 
 const app = express()
@@ -8,7 +10,11 @@ const options = {
   port: 5050,
   time: '100-300',
   cors: false,
+  directory: 'mock',
 }
+
+const directory = path.resolve(process.cwd(), options.directory)
+const mock = new Mock(directory)
 
 app.all('*', function (req, res) {
   if (options.cors) {
@@ -27,7 +33,13 @@ app.all('*', function (req, res) {
 
   const time = random(options.time)
   setTimeout(() => {
-    res.json({ message: 'default response from mock server' })
+    const key = `${req.method} ${req.path}`
+    const api = mock.find(key)
+    if (api) {
+      api(req, res)
+    } else {
+      res.json({ message: 'default response from mock server' })
+    }
   }, time)
 })
 

@@ -1,17 +1,19 @@
 #!/usr/bin/env node
 const path = require('path')
 const express = require('express')
+const args = require('args')
 const Mock = require('./Mock')
 const { random } = require('./util')
 
 const app = express()
 
-const options = {
-  port: 5050,
-  time: '100-300',
-  cors: false,
-  directory: 'mock',
-}
+args
+  .option('directory', 'The mock files directory', 'mock')
+  .option('port', 'The mock server port', 5050)
+  .option('time', 'The random request time range in ms', '100-300')
+  .option('cors', 'Allow cors')
+
+const options = args.parse(process.argv)
 
 const directory = path.resolve(process.cwd(), options.directory)
 const mock = new Mock(directory)

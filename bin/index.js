@@ -7,9 +7,22 @@ const app = express()
 const options = {
   port: 5050,
   time: '100-300',
+  cors: false,
 }
 
 app.all('*', function (req, res) {
+  if (options.cors) {
+    res.header('Access-Control-Allow-Origin', req.headers.origin)
+    res.header('Access-Control-Allow-Credentials', 'true')
+
+    if (req.method === 'OPTIONS') {
+      res.header('Access-Control-Allow-Headers', 'content-type')
+      res.header('Access-Control-Allow-Methods', 'PUT,DELETE,PATCH')
+      res.end()
+      return
+    }
+  }
+
   res.header('Cache-Control', 'no-store')
 
   const time = random(options.time)

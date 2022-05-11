@@ -1,0 +1,25 @@
+{
+  "name": "@findtools/mock-server",
+  "version": "0.0.1",
+  "description": "based on express to serve mock data",
+  "bin": {
+    "mock-server": "bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/findxc/mock-server.git"
+  },
+  "keywords": [
+    "mock",
+    "api",
+    "server"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/findxc/mock-server/issues"
+  },
+  "homepage": "https://github.com/findxc/mock-server#readme"
+}

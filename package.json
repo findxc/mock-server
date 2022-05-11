@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/findxc/mock-server/issues"
   },
-  "homepage": "https://github.com/findxc/mock-server#readme"
+  "homepage": "https://github.com/findxc/mock-server#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }

@@ -8,11 +8,15 @@ class Mock {
   }
 
   init(directory) {
-    chokidar
+    this.watcher = chokidar
       .watch(directory)
       .on('add', path => this.update(path))
       .on('change', path => this.update(path))
       .on('unlink', path => this.remove(path))
+  }
+
+  close() {
+    this.watcher.close()
   }
 
   update(path) {

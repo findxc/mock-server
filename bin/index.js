@@ -45,6 +45,11 @@ app.all('*', function (req, res) {
   }, time)
 })
 
-app.listen(options.port, () => {
+const server = app.listen(options.port, () => {
   console.log(`mock server listening on port ${options.port}`)
+})
+
+process.on('SIGTERM', () => {
+  mock.close()
+  server.close()
 })

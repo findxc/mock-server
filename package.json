@@ -5,6 +5,9 @@
   "bin": {
     "mock-server": "bin/index.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "release": "release-it"
   },

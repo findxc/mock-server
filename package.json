@@ -1,6 +1,6 @@
 {
   "name": "@findtools/mock-server",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "based on express to serve mock data",
   "bin": {
     "mock-server": "bin/index.js"

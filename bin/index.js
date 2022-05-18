@@ -24,7 +24,7 @@ app.all('*', function (req, res) {
     res.header('Access-Control-Allow-Credentials', 'true')
 
     if (req.method === 'OPTIONS') {
-      res.header('Access-Control-Allow-Headers', 'content-type')
+      res.header('Access-Control-Allow-Headers', 'content-type,authorization')
       res.header('Access-Control-Allow-Methods', 'PUT,DELETE,PATCH')
       res.end()
       return

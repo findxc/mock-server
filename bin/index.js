@@ -12,26 +12,38 @@ args
   .option('port', 'The mock server port', 5050)
   .option('time', 'The random request time range in ms', '100-300')
   .option('cors', 'Allow cors')
+  .option('ignored', 'The files need ignore', '')
 
-const options = args.parse(process.argv)
+const packageJson = require(path.resolve(process.cwd(), 'package.json'))
+
+const options = {
+  ...args.parse(process.argv),
+  ...(packageJson['mock-server'] || {}),
+}
 
 const directory = path.resolve(process.cwd(), options.directory)
-const mock = new Mock(directory)
+const mock = new Mock(directory, options.ignored)
 
 app.all('*', function (req, res) {
-  if (options.cors) {
-    res.header('Access-Control-Allow-Origin', req.headers.origin)
-    res.header('Access-Control-Allow-Credentials', 'true')
+  res.header('Cache-Control', 'no-store')
 
-    if (req.method === 'OPTIONS') {
-      res.header('Access-Control-Allow-Headers', 'content-type,authorization')
-      res.header('Access-Control-Allow-Methods', 'PUT,DELETE,PATCH')
-      res.end()
-      return
-    }
+  if (options.cors) {
+    res.header({
+      'Access-Control-Allow-Origin': req.headers.origin,
+      'Access-Control-Allow-Credentials': 'true',
+      'Access-Control-Allow-Headers': 'content-type,authorization',
+      'Access-Control-Allow-Methods': 'PUT,DELETE,PATCH',
+    })
   }
 
-  res.header('Cache-Control', 'no-store')
+  if (options.responseHeader) {
+    res.header(options.responseHeader)
+  }
+
+  if (req.method === 'OPTIONS') {
+    res.end()
+    return
+  }
 
   const time = random(options.time)
   setTimeout(() => {

@@ -2,14 +2,15 @@ const chokidar = require('chokidar')
 const { pathToRegexp } = require('path-to-regexp')
 
 class Mock {
-  constructor(directory) {
+  constructor(directory, ignored) {
     this.map = {}
-    this.init(directory)
+    this.init(directory, ignored)
   }
 
-  init(directory) {
+  init(directory, ignored) {
+    const options = ignored ? { ignored } : {}
     this.watcher = chokidar
-      .watch(directory)
+      .watch(directory, options)
       .on('add', path => this.update(path))
       .on('change', path => this.update(path))
       .on('unlink', path => this.remove(path))

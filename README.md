@@ -14,7 +14,7 @@
 
 ## How to use
 
-After `npm i @findtools/mock-server` , add a script `"mock": "mock-server"` to your package.json, and then `npm run mock` to start the mock server. If you want to see all options, run `npm run mock -- --help` .
+After `npm i @findtools/mock-server` , add a script `"mock": "mock-server"` to your `package.json` , and then `npm run mock` to start the mock server. If you want to see all options, run `npm run mock -- --help` .
 
 The server default watches `mock` folder. Following is a mock file example. you can use [Mock.js](http://mockjs.com/examples.html) to generate random data.
 
@@ -32,3 +32,20 @@ module.exports = {
   },
 }
 ```
+
+## How to add custom response header
+
+You can add a key `mock-server` in your `package.json` , following is an example. Besides, other options can be configured in `package.json` too.
+
+```json
+"mock-server": {
+  "responseHeader": {
+    "Access-Control-Allow-Headers": "content-type,authorization,others-xxx-in-request-header",
+    "Access-Control-Expose-Headers": "xxx-in-response-header-need-to-tell-frontend"
+  }
+}
+```
+
+## How to ignore specific files
+
+For example, `mock-server -i **/mock/**/*.generated.js` will ignore all `*.generated.js` .

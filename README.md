@@ -49,3 +49,14 @@ You can add a key `mock-server` in your `package.json` , following is an example
 ## How to ignore specific files
 
 For example, `mock-server -i **/mock/**/*.generated.js` will ignore all `*.generated.js` .
+
+If you want to ignore more files, configure them in package.json.
+
+```json
+"mock-server": {
+  "ignored": [
+    "**/mock/**/*.generated.js",
+    "**/mock/swagger.json"
+  ]
+},
+```
